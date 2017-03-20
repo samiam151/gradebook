@@ -25,7 +25,15 @@ namespace Grades
             this.AddGrade(firstGrade);
         }
 
-        public string Name { get; set; }
+        public string Name {
+            get { return this.Name; }
+            set {
+                if (String.IsNullOrEmpty(value))
+                {
+                    this.Name = value;
+                }
+            }
+        }
 
         public GradeStatistics ComputeStats()
         {
