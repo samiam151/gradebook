@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Grades
 {
-    public class Gradebook
+    public class Gradebook : GradeTracker, IGradeTracker
     {
         public Gradebook()
         {
@@ -22,13 +23,13 @@ namespace Grades
             this.AddGrade(firstGrade);
         }
 
-        public void AddGrade(double grade)
+        public override void AddGrade(double grade)
         {
             grades.Add(grade);
             Console.WriteLine(String.Concat("Grade Entered: ", grades.Last()));
         }
 
-        public void AddGrades(List<double> grades)
+        public override void AddGrades(List<double> grades)
         {
             if (grades.Count > 0)
             {
@@ -39,17 +40,7 @@ namespace Grades
             }
         }
 
-        public string Name {
-            get { return this.Name; }
-            set {
-                if (String.IsNullOrEmpty(value))
-                {
-                    this.Name = value;
-                }
-            }
-        }
-
-        public virtual GradeStatistics ComputeStats()
+        public override GradeStatistics ComputeStats()
         {
             GradeStatistics stats = new GradeStatistics();
 
@@ -70,6 +61,19 @@ namespace Grades
         public List<double> getGrades()
         {
             return this.grades;
+        }
+
+        public override void WriteGrades()
+        {
+            foreach (int grade in this.getGrades())
+            {
+                Console.WriteLine($"Grade: {grade}");
+            }
+        }
+
+        public override IEnumerator GetEnumerator()
+        {
+            return grades.GetEnumerator();
         }
 
         public override string ToString()

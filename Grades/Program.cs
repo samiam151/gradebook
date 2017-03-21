@@ -10,13 +10,10 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            Gradebook book = CreateGradeBook();
+            GradeTracker book = CreateGradeBook();
             book.AddGrades(new List<double>() { 91, 90, 87.5 });
-            
-            foreach (int grade in book.getGrades())
-            {
-                WriteResult("Grade: ", grade);
-            }
+
+            book.WriteGrades();
 
             GradeStatistics stats = book.ComputeStats();
             WriteResult("Average", stats.AverageGrade);
