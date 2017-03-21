@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grades
 {
@@ -25,6 +22,23 @@ namespace Grades
             this.AddGrade(firstGrade);
         }
 
+        public void AddGrade(double grade)
+        {
+            grades.Add(grade);
+            Console.WriteLine(String.Concat("Grade Entered: ", grades.Last()));
+        }
+
+        public void AddGrades(List<double> grades)
+        {
+            if (grades.Count > 0)
+            {
+                foreach (var grade in grades)
+                {
+                    this.AddGrade(grade);
+                }
+            }
+        }
+
         public string Name {
             get { return this.Name; }
             set {
@@ -35,7 +49,7 @@ namespace Grades
             }
         }
 
-        public GradeStatistics ComputeStats()
+        public virtual GradeStatistics ComputeStats()
         {
             GradeStatistics stats = new GradeStatistics();
 
@@ -51,14 +65,14 @@ namespace Grades
             return stats;
         }
 
-        private List<double> grades { get; set; }
+        protected List<double> grades { get; set; }
 
-        public void AddGrade(double grade)
+        public List<double> getGrades()
         {
-            grades.Add(grade);
-            Console.WriteLine(String.Concat("Grade Entered: ", grades.Last()));
+            return this.grades;
         }
-        public static string toString()
+
+        public override string ToString()
         {
             return "I am a gradebook!!!";
         }

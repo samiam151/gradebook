@@ -10,22 +10,25 @@ namespace Grades
     {
         static void Main(string[] args)
         {
-            Gradebook book = new Gradebook();
-            book.AddGrade(91);
-            book.AddGrade(85.3);
-            book.AddGrade(95.3);
+            Gradebook book = CreateGradeBook();
+            book.AddGrades(new List<double>() { 91, 90, 87.5 });
+            
+            foreach (int grade in book.getGrades())
+            {
+                WriteResult("Grade: ", grade);
+            }
 
             GradeStatistics stats = book.ComputeStats();
             WriteResult("Average", stats.AverageGrade);
         }
 
-        static void WriteResult(string description, float result)
+        private static void WriteResult<T>(string description, T result)
         {
             Console.WriteLine($"{description}: {result}");
         }
-        static void WriteResult(string description, int result)
-        {
-            Console.WriteLine("{0}: {1}", description, result);
+
+        private static Gradebook CreateGradeBook() {
+            return new ThrowAwayGradeBook();
         }
     }
 }
